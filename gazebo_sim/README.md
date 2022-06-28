@@ -11,7 +11,7 @@
    - sudo apt install ros-foxy-ros-core
 4. urdf, xacro parser
    - sudo apt install ros-foxy-urdf
-   - sudo apt install ros-dashing-xacro
+   - sudo apt install ros-foxy-xacro
 5. repository clone
    - cd ~/ros2_ws/src
    - git clone https://github.com/MAD-CRAZY-MAN/Autonomus_UAV
