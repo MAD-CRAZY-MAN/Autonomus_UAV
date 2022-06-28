@@ -29,14 +29,14 @@
         </visual>
   
         <sensor type="multicamera" name="stereoCamera">
-          <update_rate>60</update_rate>
+          <update_rate>30</update_rate>
           <visualize>true</visualize>
           <camera name="left">
             <pose>0 0.045 0 0 0 0</pose>
-            <horizontal_fov>1.3962634</horizontal_fov>
+            <horizontal_fov>1.5708</horizontal_fov>
             <image>
-              <width>640</width>
-              <height>480</height>
+              <width>3840</width>
+              <height>1080</height>
               <format>R8G8B8</format>
             </image>
             <clip>
@@ -47,10 +47,10 @@
 
           <camera name="right">
             <pose>0 -0.045 0 0 0 0</pose>
-            <horizontal_fov>1.3962634</horizontal_fov>
+            <horizontal_fov>1.5708</horizontal_fov>
             <image>
-              <width>640</width>
-              <height>480</height>
+              <width>3840</width>
+              <height>1080</height>
               <format>R8G8B8</format>
             </image>
             <clip>
@@ -75,10 +75,11 @@
 
         <sensor type="camera" name="hiresCamera">
         <camera>
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>1.125</horizontal_fov>
           <image>
-            <width>320</width>
-            <height>240</height>
+            <width>3264</width>
+            <height>2448</height>
+            <format>R8G8B8</format>
           </image>
           <clip>
             <near>0.1</near>
@@ -86,7 +87,7 @@
           </clip>
         </camera>
         <always_on>1</always_on>
-        <update_rate>5</update_rate>
+        <update_rate>15</update_rate>
         <visualize>true</visualize>
         <plugin name="hires_controller" filename="libgazebo_ros_camera.so">
           <ros>
@@ -99,10 +100,11 @@
 
       <sensor type="camera" name="fisheyeCamera">
         <camera>
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>2.79253</horizontal_fov>
           <image>
-            <width>320</width>
-            <height>240</height>
+            <width>1280</width>
+            <height>800</height>
+            <format>R8G8B8</format>
           </image>
           <clip>
             <near>0.1</near>
@@ -110,7 +112,7 @@
           </clip>
         </camera>
         <always_on>1</always_on>
-        <update_rate>5</update_rate>
+        <update_rate>30</update_rate>
         <visualize>true</visualize>
         <plugin name="fisheye_controller" filename="libgazebo_ros_camera.so">
           <ros>
@@ -125,10 +127,10 @@
           <update_rate>60</update_rate>
           <visualize>false</visualize>
           <camera>
-            <horizontal_fov>1.92</horizontal_fov>
+            <horizontal_fov>1.74533</horizontal_fov>
             <image>
-              <width>640</width>
-              <height>480</height>
+              <width>3520</width>
+              <height>2870</height>
               <format>B8G8R8</format>
             </image>
             <depth_camera>
