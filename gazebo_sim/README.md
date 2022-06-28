@@ -1,4 +1,12 @@
+# Gazebo_Sim
+
 ### Requirements
+
+- ROS2-Dashing or ROS2-fosy 
+
+
+
+### Quick Start
 
 1. install gazebo 11
 2. install PX4-Autopilot
@@ -17,5 +25,11 @@
    - git clone https://github.com/MAD-CRAZY-MAN/Autonomus_UAV
 6. build
    - colcon build --symlink-install
-7. start
+7. start 
    - ros2 launch gazebo_sim daedeok_police_office_sim.launch.py
+8. check topic
+   - ros2 topic list
+     - /bronco/depthCamera
+     - /bronco/stereoCamera
+     - /bronco/fisheyeCamera
+     - /bronco/hiresCamera
