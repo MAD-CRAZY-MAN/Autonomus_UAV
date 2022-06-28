@@ -16,8 +16,6 @@ def generate_launch_description():
     gazebo_sim_dir = get_package_share_directory('gazebo_sim')
     world = os.path.join(gazebo_sim_dir, 'worlds', 'add', 'add.world')
     model = os.path.join(gazebo_sim_dir, 'models', 'iris_add', 'iris_add.sdf')
-    #custom_gazebo_models = os.path.join(blackdrones_description_dir, 'models')
-    #px4_init = os.path.join(blackdrones_description_dir, 'PX4-init')
 
     os.makedirs(PX4_RUN_DIR, exist_ok=True)
 
