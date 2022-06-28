@@ -4,8 +4,8 @@
       <uri>model://iris</uri>
     </include>
 
-    <!-- Stereo Camera -->
-    <link name="stereo_camera">
+    <!-- camera sensors -->
+    <link name="camera_mount">
         <pose>0.1 0 0 0 0 0</pose>
         <inertial>
           <pose>0 0 0 0 0 0</pose>
@@ -168,9 +168,9 @@
     </link>  
         
 
-    <joint name="stereo_joint" type="fixed">
+    <joint name="camera_mount_joint" type="fixed">
       <parent>iris::base_link</parent>
-      <child>stereo_camera</child>
+      <child>camera_mount</child>
     </joint>
   </model>
 </sdf>

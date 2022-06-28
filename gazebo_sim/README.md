@@ -33,3 +33,7 @@
      - /bronco/stereoCamera
      - /bronco/fisheyeCamera
      - /bronco/hiresCamera
+9. Run GCS and control the drone
+   - install QGC
+   - Run QGC
+   - Use joystick or command
