@@ -2,6 +2,7 @@
   <model name='iris_add'>
     <include>
       <uri>model://iris</uri>
+      <pose>0 0 0 0 0 0</pose>
     </include>
 
     <!-- camera sensors -->
@@ -171,7 +172,7 @@
         
 
     <joint name="camera_mount_joint" type="fixed">
-      <parent>iris::base_link</parent>
+      <parent>peach_iris::base_link</parent>
       <child>camera_mount</child>
     </joint>
   </model>
