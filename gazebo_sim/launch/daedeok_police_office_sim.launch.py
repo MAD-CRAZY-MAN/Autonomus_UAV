@@ -28,8 +28,8 @@ def generate_launch_description():
 
         DeclareLaunchArgument('world', default_value=world),
         DeclareLaunchArgument('model', default_value=model),
-        DeclareLaunchArgument('x', default_value='0.0'),
-        DeclareLaunchArgument('y', default_value='0.0'),
+        DeclareLaunchArgument('x', default_value='-13'),
+        DeclareLaunchArgument('y', default_value='-13'),
         DeclareLaunchArgument('z', default_value='0.0'),
         DeclareLaunchArgument('R', default_value='0.0'),
         DeclareLaunchArgument('P', default_value='0.0'),
