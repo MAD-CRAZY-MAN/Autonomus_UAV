@@ -17,6 +17,7 @@ endif()
 
 include_directories(
     include
+    ${Eigen3_INCLUDE_DIRS}
 )
 
 # find dependencies
@@ -24,9 +25,11 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
-add_library(path_planning src/astar.cpp)
+find_package(eigen3_cmake_module REQUIRED)
+find_package(Eigen3)
 
-ament_target_dependencies(path_planning ament_cmake rclcpp std_msgs)
+add_library(path_planning src/astar.cpp)
+ament_target_dependencies(path_planning ament_cmake rclcpp std_msgs Eigen3)
 
 target_link_libraries(path_planning)
 
