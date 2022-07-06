@@ -46,10 +46,71 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
 
         Eigen::Vector3d cur_pos = cur_node->position;
         Eigen::Vector3d pro_pos;
+        Eigen::Vector3d d_pos;
+        for (double dx = -resolution_; dx <= resolution_ + 1e-3; dx += resolution_) //resolution == 0.1
+            for (double dy = -resolution_; dy <= resolution_ + 1e-3; dy += resolution_)
+                for (double dz = -resolution_; dz <= resolution_ + 1e-3; dz += resolution_) { //resolution == merters/pixel, 0.05 == 5cm
+                    d_pos << dx, dy, dz;
+
+                    if (d_pos.norm() < 1e-3) continue; //1e-3 == 0.001 //L2 norm, 유클리드 노름
+
+                    pro_pos = cur_pos + d_pos;
+
+                    if (pro_pos(0) <= origin(0) || pro_pos(1) >= map_size_3d(0) ||
+                        pro_pos(1) <= origin(1) || pro_pos(2) >= map_size_3d(2) ||
+                        pro_pos(2) <= origin(2) || pro_pos(2) >= map_size_3d(2)) {
+                        //map을 벗어나는지 확인
+                        continue;
+                    }
+
+                    Eigen::Vector3i pro_id = posToIndex(pro_pos);
+                    NodePtr pro_node = expanded_nodes.find(pro_id);
+
+                    if (pro_node != NULL && pro_node->node_state == IN_CLOSE_SET) {
+                        continue;
+                    }
+        
+                    // collision free
+
+                    // compute cost
+                    double tmp_g_cost, tmp_f_cost;
+                    tmp_g_cost = d_pos.squareNorm() + cur_node->g_cost;
+                    tmp_f_cost = tmp_g_cost + getEuclHeu(pro_pos, end_pt); //f = g + h, 기존 코드는 유클리드 계산에 lambda_heu(5)를 곱함. Heuristic값에 가중치를 주는 것 같음. 테스트 후 수정
+
+                    if (pro_node == NULL) { //이전에 탐색하지 않았다면 계산한 cost 추가하고 open set에 넣음
+                        pro_node = path_node_pool[use_node_num];
+                        pro_node->index = pro_id;
+                        pro_node->f_cost = tmp_f_cost;
+                        pro_node->g_cost = tmp_g_cost;
+                        pro_node->parent = cur_node;
+                        pro_node->node_state = IN_OPEN_SET;
+
+                        open_set.push(pro_node);
+                        expended_nodes.insert(pro_id, pro_node); //insert key, value to expanded hash table
+
+                        use_node_num += 1; //메모리에 저장된(탐색한) node 수
+                        if (use_node_num == allocate_num) { //allocate_num == 100000
+                            //run out of memory
+                            return NO_PATH;
+                        }
+                    }
+                    else if (pro_node->node_state == IN_OPEN_SET) { //이미 open set에 있다면 
+                        if (tmp_g_cost < pro_node->g_cost) { //현재 cost와 이전 cost를 비교하여, 현재 cost가 적다면 cost와 parent를 변경함
+                            pro_node->position 
+                        }
+                    }
+
+        
+                }
 
     }
+    //open set empty, no path
 
     return NO_PATH;
+}
+
+double Astar::getEuclHeu(Eigen::Vector3d x1, Eigen::Vector3d x2) {
+    return (x1 - x2).norm(); //tie breaker 없음. 정확히 왜 필요한지 아직 모르겟어서 뺌. tie breaker = 1.0001
 }
 
 void Astar::retrievePath(NodePtr end_node) {
@@ -79,6 +140,8 @@ void Astar::reset() {
 }
 
 Eigen::Vector3i Astar::posToIndex(Eigen::Vector3d pt) {
-    Vector3i idx;// = ((pt -origin))
+    Vector3i idx = ((pt - origin) * inv_resolution).array().floor().cast<int>();
+    //floor = 주어진 값보다 크지 않은 가장 가까운 정수
+    //array는 계수별 연산에 대한 쉬운 엑세스 제공. matrix, vector는 선형 대수 연산에 대한 쉬운 엑세스 제공
     return idx;
 }

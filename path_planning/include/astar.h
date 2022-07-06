@@ -31,7 +31,7 @@ class Node {
 };
 typedef Node* NodePtr;
 
-class NodeComparator0 {
+class NodeComparator0 { //비용 비교 함수. open set priority queue에서 f cost가 가장 적은 노드를 꺼낼 때 사용함.
     public:
         bool operator()(NodePtr node1, NodePtr node2) {
             return node1->f_cost > node2->f_cost;
@@ -59,7 +59,7 @@ class NodeHashTable0 {
             data_3d.insert(make_pair(idx, node));
         }
 
-        NodePtr find(Eigen::Vector3i idx) {
+        NodePtr find(Eigen::Vector3i idx) { //insert key, output value
             auto iter = data_3d.find(idx);
             return iter == data_3d.end() ? NULL : iter->second;
         }
