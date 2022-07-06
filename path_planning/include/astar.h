@@ -42,10 +42,9 @@ template <typename T>
 struct matrix_hash0 : std::unary_function<T, size_t> {
     std::size_t operator()(T const& matrix) const {
         size_t seed = 0;
-
-        for (size_t i = 0; i<matrix.size(); ++i) {
-            auto elem = *(matrix.data() + i);
-            seed ^= std::hash<typename T::Scalar>()(elem) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        for (size_t i = 0; i < static_cast<size_t>(matrix.size()); ++i) { //static_cast<size_t>, size_t = long unsigne int, Eigen::Matrix<int, 3, 1> = long int
+            auto elem = static_cast<size_t>(*(matrix.data() + i));
+            seed ^= std::hash<typename T::Scalar>()(elem) + 0x9e3779b9 + (seed << 6) + (seed >> 2); //hash combine
         }
         return seed;
     }
@@ -76,8 +75,11 @@ class Astar {
 
         enum { REACH_END = 1, NO_PATH = 2 };
 
+        void init();
         int search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt);
         void reset();
+        
+        std::vector<Eigen::Vector3d> getPath(); //fsm에서 쓰는지 확인
 
     private:
         /* ---------- main data structure ---------- */
@@ -98,6 +100,7 @@ class Astar {
         double tie_breaker;
         /* map */
         double resolution;
+        double inv_resolution;
         Eigen::Vector3d origin, map_size_3d;
 
         /* helper */

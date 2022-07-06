@@ -15,10 +15,31 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+include_directories(
+    include
+    ${Eigen3_INCLUDE_DIRS}
+)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+
+find_package(eigen3_cmake_module REQUIRED)
+find_package(Eigen3)
+
+find_package(path_planning)
+
+# build
+add_executable(planning_node 
+              src/planning_node.cpp
+              src/astar_replan_fsm.cpp)
+ament_target_dependencies(planning_node ament_cmake rclcpp std_msgs Eigen3 path_planning)
+
+# install 
+install(TARGETS 
+        planning_node 
+        DESTINATION lib/${PROJECT_NAM})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
