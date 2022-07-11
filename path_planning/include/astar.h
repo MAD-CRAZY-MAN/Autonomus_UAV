@@ -8,6 +8,7 @@
 
 #include <queue>
 #include <unordered_map>
+#include <memory>
 
 #define IN_CLOSE_SET 'a'
 #define IN_OPEN_SET 'b'
@@ -80,6 +81,7 @@ class Astar {
         void reset();
         
         std::vector<Eigen::Vector3d> getPath(); //fsm에서 쓰는지 확인
+        typedef unique_ptr<Astar> Ptr;
 
     private:
         /* ---------- main data structure ---------- */

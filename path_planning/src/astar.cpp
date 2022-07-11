@@ -127,11 +127,21 @@ void Astar::retrievePath(NodePtr end_node) {
 }
 
 void Astar::init() {
-    //parma
+    cout << "astar init" <<endl;
+    //param
     resolution = 0.1;
-    inv_resolution = 1.0 / resolution;
+    inv_resolution = 1.0 / resolution; //resolution == 0.1
     allocate_num = 100000;
 
+    //map
+    //edt_environment->getMapRejion(origin, map_size_3d);
+    origin(0) = 0;
+    origin(1) = 0;
+    origin(2) = 0;
+    map_size_3d(0) = 20;
+    map_size_3d(1) = 20;
+    map_size_3d(2) = 20;
+    
     //init
     path_node_pool.resize(allocate_num);
     for(int i = 0; i < allocate_num; i++) {
@@ -140,6 +150,7 @@ void Astar::init() {
 
     use_node_num = 0;
     iter_num = 0;
+    return;
 }
 
 void Astar::reset() {

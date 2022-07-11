@@ -12,7 +12,6 @@ using namespace std::chrono_literals;
 int main(int argc, char** argv) {
 
     rclcpp::init(argc, argv);
-    std::cout<<"test"<<std::endl;
 
     auto fsm = make_shared<AstarReplanFSM>();
     fsm->init();
