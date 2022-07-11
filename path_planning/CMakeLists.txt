@@ -28,10 +28,24 @@ find_package(std_msgs REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3)
 
-add_library(path_planning src/astar.cpp)
+add_library(path_planning STATIC src/astar.cpp)
+target_include_directories(path_planning PUBLIC 
+                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                          $<INSTALL_INTERFACE:include>)
 ament_target_dependencies(path_planning ament_cmake rclcpp std_msgs Eigen3)
+ament_export_targets(path_planning HAS_LIBRARY_TARGET)
+ament_export_dependencies(ament_cmake rclcpp std_msgs Eigen3)
 
-target_link_libraries(path_planning)
+install(
+        DIRECTORY include/
+        DESTINATION include
+)
+install(TARGETS path_planning
+        EXPORT path_planning
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

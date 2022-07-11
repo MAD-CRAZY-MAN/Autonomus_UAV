@@ -28,7 +28,7 @@ find_package(std_msgs REQUIRED)
 find_package(eigen3_cmake_module REQUIRED)
 find_package(Eigen3)
 
-find_package(path_planning)
+find_package(path_planning REQUIRED)
 
 # build
 add_executable(planning_node 
@@ -37,9 +37,8 @@ add_executable(planning_node
 ament_target_dependencies(planning_node ament_cmake rclcpp std_msgs Eigen3 path_planning)
 
 # install 
-install(TARGETS 
-        planning_node 
-        DESTINATION lib/${PROJECT_NAM})
+install(TARGETS planning_node 
+        DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
