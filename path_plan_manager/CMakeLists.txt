@@ -33,7 +33,8 @@ find_package(path_planning REQUIRED)
 # build
 add_executable(planning_node 
               src/planning_node.cpp
-              src/astar_replan_fsm.cpp)
+              src/astar_replan_fsm.cpp
+              src/planner_manager.cpp)
 ament_target_dependencies(planning_node ament_cmake rclcpp std_msgs Eigen3 path_planning)
 
 # install 
