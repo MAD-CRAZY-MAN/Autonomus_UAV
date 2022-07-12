@@ -7,6 +7,7 @@
 #include <string>
 
 #include <queue>
+#include <map>
 #include <unordered_map>
 #include <memory>
 
@@ -55,6 +56,9 @@ class NodeHashTable0 {
     private:
         std::unordered_map<Eigen::Vector3i, NodePtr, matrix_hash0<Eigen::Vector3i>> data_3d;
     public:
+        NodeHashTable0() {}
+        ~NodeHashTable0() {}
+
         void insert(Eigen::Vector3i idx, NodePtr node) {
             data_3d.insert(make_pair(idx, node));
         }

@@ -14,11 +14,9 @@ void PlannerManager::init() {
 }
 
 bool PlannerManager::astarReplan(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
-    cout << "start search1" << endl;
 
     _path_finder->reset();
 
-    cout << "start search2" << endl;
     int status = _path_finder->search(start_pt, end_pt);
 
     if (status == Astar::NO_PATH) {
@@ -32,7 +30,7 @@ bool PlannerManager::astarReplan(Eigen::Vector3d start_pt, Eigen::Vector3d end_p
         
     
         for (auto iter = test.begin(); iter!= test.end(); iter++) { // int -> unsigned long
-            cout << *iter << endl;
+            cout << *iter << '\n' << endl;
         }
         return true; //modify
     }
