@@ -56,8 +56,8 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
 
         open_set.pop();
         cur_node->node_state = IN_CLOSE_SET;
-        cout << "pop open set" << endl;
-        cout << "close pos: " << fixed << cur_node->position << '\n' << endl;
+        //cout << "pop open set" << endl;
+        //cout << "close pos: " << fixed << cur_node->position << '\n' << endl;
         iter_num += 1; //close set 탐색 횟수
 
         Eigen::Vector3d cur_pos = cur_node->position;
@@ -70,18 +70,18 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
                 for (double dz = -resolution; dz <= resolution + 1e-3; dz += resolution) { //resolution == merters/pixel, 0.1 == 10cm
                     d_pos << dx, dy, dz;
 
-                    // if (d_pos.norm() < 1e-3) 
-                    //     continue; //1e-3 == 0.001 //L2 norm, 유클리드 노름 //current position 제외
+                    if (d_pos.norm() < 1e-3) 
+                        continue; //1e-3 == 0.001 //L2 norm, 유클리드 노름 //current position 제외
                     
                     pro_pos = cur_pos + d_pos;
 
-                    cout << "neighbor" <<endl;
-                    cout << pro_pos << '\n' << endl;
+                    //cout << "neighbor" <<endl;
+                    //cout << pro_pos << '\n' << endl;
                     
                     if (pro_pos(0) <= origin(0) || pro_pos(0) >= map_size_3d(0) ||
                         pro_pos(1) <= origin(1) || pro_pos(1) >= map_size_3d(1) ||
                         pro_pos(2) <= origin(2) || pro_pos(2) >= map_size_3d(2)) {
-                         cout << "outside map" <<endl;
+                        //cout << "outside map" <<endl;
                         // cout << pro_pos << '\n' << endl;
                         // map을 벗어나는지 확인
                         continue;
@@ -91,11 +91,12 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
                     NodePtr pro_node = expanded_nodes.find(pro_id);
 
                     if (pro_node != NULL && pro_node->node_state == IN_CLOSE_SET) {
-                        cout << "in close set" <<endl;
+                        //cout << "in close set" <<endl;
                         continue;
                     }
         
                     // collision free
+
 
                     // compute cost
                     double tmp_g_cost, tmp_f_cost;
@@ -114,8 +115,8 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
                         open_set.push(pro_node);
 
                         expanded_nodes.insert(pro_id, pro_node); //insert key, value to expanded hash table
-                        cout << "insert open set" << endl;
-                        cout << fixed << pro_node->position << '\n' <<endl;
+                        //cout << "insert open set" << endl;
+                        //cout << fixed << pro_node->position << '\n' <<endl;
 
                         use_node_num += 1; //메모리에 저장된(탐색한) node 수
 
@@ -125,8 +126,8 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
                         }
                     }
                     else if (pro_node->node_state == IN_OPEN_SET) { //이미 open set에 있다면 
-                        cout << "already" << endl;
-                        cout << pro_id << endl;
+                        //cout << "already" << endl;
+                        //cout << pro_id << endl;
                         if (tmp_g_cost < pro_node->g_cost) { //현재 cost와 이전 cost를 비교하여, 현재 cost가 적다면 cost와 parent를 변경함
                             pro_node->position = pro_pos;
                             pro_node->f_cost = tmp_f_cost;
@@ -134,13 +135,13 @@ int Astar::search(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt) {
                             pro_node->parent = cur_node;
                         }
                     } else {
-                        cout << "error type in searching" << endl;
+                        //cout << "error type in searching" << endl;
                     }
                 }
     }
     //open set empty, no path
     cout << "[Astar] open set empty, iter num: " << iter_num << endl;
-    cout << "allocate_num: " << use_node_num << endl;
+    //cout << "allocate_num: " << use_node_num << endl;
     return NO_PATH;
 }
 
