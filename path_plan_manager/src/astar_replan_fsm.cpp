@@ -10,9 +10,7 @@ void AstarReplanFSM::init() {
     _have_target = true;
     _have_odom = true;
     cout <<"fsm init" <<endl;
-    _odom_pos(0) = 0.1;
-    _odom_pos(1) = 0.1;
-    _odom_pos(2) = 0.1;
+
     _planner_manager->init();
     _timer = this->create_wall_timer(1s, std::bind(&AstarReplanFSM::execFSMCallback, this));
 }
@@ -75,9 +73,6 @@ void AstarReplanFSM::execFSMCallback() {
 }
 
 bool AstarReplanFSM::callAstarReplan() {
-    _end_pt(0) = 9.9;
-    _end_pt(1) = 9.9;
-    _end_pt(2) = 9.9;
     
     bool success = _planner_manager->astarReplan(_start_pt, _end_pt);
 
@@ -89,7 +84,11 @@ bool AstarReplanFSM::callAstarReplan() {
         return false;
     }
 }
+
 void AstarReplanFSM::changeFSMExecState(FSM_EXEC_STATE new_state, string pos_call) {
+    cout << "test " <<endl;
+    string state_str[5] = { "INIT", "WAIT_TARGET", "GEN_NEW_TRAJ", "REPLAN_TRAJ", "EXEC_TRAJ" };
+    int    pre_s        = int(_exec_state);
     _exec_state = new_state;
-    pos_call = "s";
+    cout << "[" + pos_call + "]: from " + state_str[pre_s] + " to " + state_str[int(new_state)] << endl;
 }
