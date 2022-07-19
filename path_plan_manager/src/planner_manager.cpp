@@ -38,3 +38,7 @@ bool PlannerManager::astarReplan(Eigen::Vector3d start_pt, Eigen::Vector3d end_p
 
     //plan_data.path = path_finder->getTraj(0.01);
 }
+
+void PlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
+    
+}

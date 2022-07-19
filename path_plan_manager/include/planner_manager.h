@@ -20,6 +20,11 @@ class PlannerManager {
         void init();
         bool astarReplan(Eigen::Vector3d start_pt, Eigen::Vector3d end_pt);
 
+        void planYaw(const Eigen::Vector3d& start_yaw);
+
+
+        bool checkTrajCollision(double& distance);
+
         typedef unique_ptr<PlannerManager> Ptr;
 
         

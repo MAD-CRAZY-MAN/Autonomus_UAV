@@ -41,6 +41,7 @@ class AstarReplanFSM : public rclcpp::Node {
         bool callAstarReplan();
 
         void changeFSMExecState(FSM_EXEC_STATE new_state, string pos_call);
+        void printFSMExecState();
         
         // ROS2 functions
         void execFSMCallback();
