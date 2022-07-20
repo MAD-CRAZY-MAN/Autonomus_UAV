@@ -21,22 +21,21 @@ bool PlannerManager::astarReplan(Eigen::Vector3d start_pt, Eigen::Vector3d end_p
 
     if (status == Astar::NO_PATH) {
         cout << "search fail!" <<endl;   
+
         return false;
     }
     else {
-        cout << "search success" << endl;
-
-        std::vector<Eigen::Vector3d> test = _path_finder->getPath();
-        
-    
-        for (auto iter = test.begin(); iter!= test.end(); iter++) { // int -> unsigned long
-            cout << *iter << '\n' << endl;
-        }
-        return true; //modify
+        cout << "search success" << endl;        
     }
-    
+
+    std::vector<Eigen::Vector3d> test = _path_finder->getPath();
+        
+    for (auto iter = test.begin(); iter!= test.end(); iter++) { // int -> unsigned long
+        cout << *iter << '\n' << endl;
+    }
 
     //plan_data.path = path_finder->getTraj(0.01);
+    return true; //modify
 }
 
 void PlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
